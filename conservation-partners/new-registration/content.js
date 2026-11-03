@@ -13,6 +13,7 @@ var CI='https://airtable.com/appCK2qlT3WHdhYKd/';
 var PG={start:CI+'pagVETHNblPbxwTxn',partners27:CI+'pagQgCykQHXegEe9K',fee:CI+'pagFR0b30onXOmGu6',attn:CI+'pagKNiYuQSgmnLV4K',ship:CI+'pag7xtQ9ca8Gv7Zbz',dir:CI+'pag0EH8lm1aceIW4F',edit:CI+'pagnEFcZG9rSTwPrP',all:CI+'pagJcbUmhazUyPnCY',dash:CI+'pag8WIHP6KgD6SPcN'};
 
 window.PLAYBOOK={
+hideStatus:['verify'],
 meta:{
   title:'Conservation Partner Playbook: New Registration',
   sub:'Run new registrations: where to go, what to do, how to make changes, and how to get help.',
@@ -37,10 +38,7 @@ start:{
     {l:'All Partners (All Years)',s:'Search any partner and every year they were active',u:PG.all}
   ],
   workspaceNote:'You sign in with the shared REEF Staff login. Edit records rather than shared views. If you want a view of your own, create a new one and leave the existing ones as they are. More in [Working in the shared Airtable workspace](#ref/workspace).',
-  alerts:[
-    {t:'Launch stage: the first real registrations',x:'No real new registration has come through the live form yet (checked 2 Nov). The system was tested from start to finish on 29 Oct. For the first few real registrations, run the [first-live-registrations check](#tasks/first-live) to confirm each step worked in real conditions. It is temporary, not a daily routine.'},
-    {t:'Weekly PayPal check has no named owner yet',x:'Nothing alerts anyone if the registration automation pauses, so each week store or operations staff (who have PayPal access) confirm the PayPal payments match the 2027 Partners list. A named person and a recurring reminder are still to be set up. See [the PayPal check](#tasks/paypal-check).'}
-  ],
+  alerts:[],
   common:[
     {l:'Review a new registration',s:'2027 Partners (Registered)',go:'tasks/review-registration'},
     {l:'Check what needs attention',s:'Start Here numbers',go:'tasks/see-attention'},
@@ -66,32 +64,13 @@ start:{
 tasks:{
   intro:'Each task says where to go, the steps, and how to confirm it worked. A star marks everyday tasks. A label appears only where something is not fully working yet. For changing wording, forms or pages, see [Make a Change](#change).',
   groups:[
-  {t:'Launch stage (temporary)',items:[
-   {id:'first-live',t:'Check the first live registrations',star:1,status:'verify',
-    what:'Confirm that each of the first real registrations went through every step correctly. This is a **temporary launch-stage check, not a daily routine**. The system was tested end to end on 29 Oct, but no real partner has used it yet. Once a few registrations in a row look right, retire this check. Suggested: the first three clean registrations; you can change that number.',
-    where:[['2027 Partners (Registered)',PG.partners27],['Other Needs Attention',PG.attn],['Ship Toolkits',PG.ship],['Directory Review',PG.dir]],
-    wt:'Open the partner in each place named below.',
-    tableLabel:'Checks',
-    table:{head:['Check','Where to look','What right looks like','If it does not'],rows:[
-     ['1. Registration received','Start Here count; 2027 Partners (Registered); the alert email at partners@reef.org','The partner is listed as paid within about 10 minutes of paying. An alert arrived at partners@ from “REEF Registration Alerts”.','[A registration isn’t appearing](#fix/cant-find)'],
-     ['2. Payment recorded and correctly associated','2027 Partners (Registered); ask store or operations staff to look up the payment in PayPal','Amount Paid matches PayPal. The $100 fee and any donation are shown separately. The payment sits on the right organization.','[Payment received but record not updated](#fix/payment-not-recorded)'],
-     ['3. Partner record created or matched','All Partners (All Years); Other Needs Attention','One record for the organization, with the contact linked. No second record, and no unresolved “Name is close” or “Already registered” note.','[A name looks close](#fix/name-close); [Appears twice](#fix/appears-twice)'],
-     ['4. Confirmation sent','The partner (ask them to confirm); partners@ inbox','The welcome email arrived, signed by Noa, and a reply reaches Noa. PayPal sent its receipt. After paying, the partner landed on the thank-you page.','[Welcome email not received](#fix/no-welcome-email)'],
-     ['5. Toolkit fulfillment status correct','Ship Toolkits','A partner who chose a toolkit is listed with the right toolkit, region and address, and Fulfillment Status is Not started until you ship. A Lionfish toolkit has no region on purpose. A fee-reduction partner is not listed.','[Toolkit has no address or region](#fix/toolkit-missing)'],
-     ['6. Directory and profile workflow','Directory Review; the folder in Noa’s Dropbox for logos','The partner appears with Directory Review Status “Needs review”. The uploaded logo arrived in the Dropbox folder.','Tell technical support if the logo did not arrive. [Check a directory listing](#tasks/directory-listing)']
-    ]},
-    confirm:'Every row looks right for that registration. Keep a short note (organization, date, what you checked) so you can see when you have reached your number.',
-    wrong:'If a row does not look right, use the fix linked in that row, and tell technical support what you saw. Finding a problem on the first real registrations is exactly what this check is for.',
-    sn:'When you are comfortable, delete this card from content.js or ask technical support to remove it. It should not become permanent.'}
-  ]},
   {t:'Registrations and payments',items:[
    {id:'review-registration',t:'Review a new registration',star:1,
     what:'Look at a partner who has just registered and make sure the registration looks right.',
     where:[['2027 Partners (Registered)',PG.partners27],['Start Here',PG.start]],
     steps:['Open Start Here and look at the numbers. Each number is work waiting.','Open 2027 Partners (Registered). A new registration appears here once it is paid, with status, fee option, amount paid, donation, toolkit and shipping status.','Check the organization, contact, amount and toolkit against what the partner chose.','If something is held or looks off, open Other Needs Attention and follow its Next Step.'],
     confirm:'The partner is listed with the right amount and toolkit, and nothing is waiting for them on Other Needs Attention.',
-    wrong:'Not in the list about 10 minutes after paying? See [A registration isn’t appearing](#fix/cant-find).',
-    sn:'No real new registrations have come through yet. For the first few, use the [first-live-registrations check](#tasks/first-live).'},
+    wrong:'Not in the list about 10 minutes after paying? See [A registration isn’t appearing](#fix/cant-find).'},
    {id:'see-attention',t:'Check what needs attention',star:1,
     what:'See what work is waiting for you today.',
     where:[['Start Here',PG.start]],
@@ -123,12 +102,10 @@ tasks:{
     steps:['For this year’s registrations, open 2027 Partners (Registered).','For any partner and every year they were active, open All Partners (All Years) and search by organization name.','Try other spellings of the organization and the contact’s email.'],
     confirm:'You find the partner, or you know the registration has not arrived yet.',
     wrong:'Not found about 10 minutes after paying: [A registration isn’t appearing](#fix/cant-find).'},
-   {id:'paypal-check',t:'Run the weekly PayPal check',status:'interim',
-    what:'Make sure every PayPal payment has a matching partner. Nothing alerts anyone if the registration automation pauses, so this quick check is the safeguard.',
-    steps:['Once a week, ask store or operations staff (they have PayPal access; you do not) to compare the week’s PayPal payments with the 2027 Partners (Registered) list.','Any payment with no partner after about 10 minutes needs attention: see [Payment received but record not updated](#fix/payment-not-recorded).'],
-    confirm:'Store or operations staff tell you the two lists match.',
-    sn:'Weekly is the current practice. No named person and no recurring reminder have been set up yet. That is an open operational follow-up, not something you should have to remember on your own.',
-    refs:[['PayPal check: owner and follow-up','ref/paypal-check']]}
+   {id:'paypal-check',t:'Review the weekly QuickBooks report',status:'working',
+    what:'QuickBooks Online sends a recurring Conservation Partners class report to partners@REEF.org. Compare it with the 2027 Partners (Registered) list to make sure every payment has a matching partner.',
+    steps:['Open the weekly QuickBooks report in the partners@ inbox.','Compare its payments with the 2027 Partners (Registered) list.','Any payment with no partner after about 10 minutes needs attention: see [Payment received but record not updated](#fix/payment-not-recorded).'],
+    confirm:'Every payment on the report has a matching partner.'}
   ]},
   {t:'Invoiced registrations (alternate pathway)',items:[
    {id:'invoice',t:'Handle a partner who wants to pay by invoice',star:1,status:'interim',
@@ -144,7 +121,7 @@ tasks:{
       ['Not built yet','A defined, tested way to record a paid invoice as a registration, and a way to tell you it was paid. Follow-up: agree the process and an owner (see the gaps list).'],
       ['Policy','Invoicing policy (amount, due date, whether to offer it) is an organizational decision. See [Make a Change](#change/fee-and-payment).']]},
     refs:[['Invoiced registrations: who does what','ref/invoices']]},
-   {id:'fee-reduction',t:'Decide a fee reduction request',star:1,status:'verify',
+   {id:'fee-reduction',t:'Decide a fee reduction request',star:1,
     what:'A nonprofit or other partner has asked for a reduction in the $100 fee. This decision is yours.',
     where:[['Fee Reduction Requests',PG.fee]],
     steps:['Open Fee Reduction Requests and read the reason.','To approve: tick **Fee Reduction Approved**, then set Processing Status to **New**.','To decline: set **Staff Decision** and add a **Staff Note**.','Approved partners currently get no toolkit and no coupon. That is today’s program rule, and it can change (see [Make a Change](#change/program-decisions)).'],
@@ -154,7 +131,7 @@ tasks:{
     refs:[['Program decisions and what they touch','change/program-decisions']]}
   ]},
   {t:'Toolkits, coupons and the directory',items:[
-   {id:'ship-toolkit',t:'Process toolkit fulfillment',star:1,status:'verify',
+   {id:'ship-toolkit',t:'Process toolkit fulfillment',star:1,
     what:'Ship the toolkit a partner chose and record it.',
     where:[['Ship Toolkits',PG.ship]],
     steps:['Open Ship Toolkits. It lists paid or confirmed partners who chose a toolkit and are not shipped.','Check the address and region.','Ship it, then set Fulfillment Status to **Sent**.'],
@@ -166,14 +143,14 @@ tasks:{
     steps:['Check the partner paid. A partner with a fee reduction gets no code.','Create the code in the reef.org store: one-time, 10% off a store purchase of $250 or more, with a partner-specific name plus the year (for example EXAMPLE2027).','Email the code to the partner.'],
     confirm:'The partner has the code.',
     sn:'Manual by design. Where the team records which codes were sent is not written down yet.'},
-   {id:'directory-listing',t:'Check and publish a directory listing',star:1,status:'verify',
+   {id:'directory-listing',t:'Check and publish a directory listing',star:1,
     what:'Make sure a partner’s public listing is correct and live on reef.org.',
     where:[['Directory Review',PG.dir]],
     steps:['Open Directory Review and check the listing and the **Directory Gaps** column.','Publish the listing on reef.org.','Set Directory Review Status.'],
     confirm:'The listing is visible on the reef.org directory and the status is updated.',
     wrong:'If the page will not save, ask website support.',
     sn:'Tested with test records. Publishing is by hand.'},
-   {id:'find-logo',t:'Find a partner logo',status:'verify',
+   {id:'find-logo',t:'Find a partner logo',
     what:'Locate the logo a partner uploaded on the form.',
     wt:'Logos uploaded on the form are saved directly to a folder in Noa’s Dropbox.',
     confirm:'The logo file is in the folder.',
@@ -186,13 +163,13 @@ tasks:{
     wrong:'A field you need is not on the page, or you cannot edit it: ask technical support for a page fix.'}
   ]},
   {t:'Change something',items:[
-   {id:'page-content',t:'Update page content on REEF.org',status:'verify',
+   {id:'page-content',t:'Update page content on REEF.org',
     what:'Edit text, headings, links, buttons and photos on your Conservation Partner pages as part of running the program.',
     wt:'Steps are on the Make a Change tab. Keep the embedded registration form block in place while you edit around it.',
     sn:'Tested on the Conservation Partners landing page. Not yet tested on the registration page with the embedded form.',
     wrong:'Website support if the editor will not load or save.',
     refs:[['Full steps','change/reef-page-content']]},
-   {id:'wording',t:'Change the wording of the form or the welcome email',status:'verify',
+   {id:'wording',t:'Change the wording of the form or the welcome email',
     what:'Wording, help text and instructions are yours to update.',
     where:[['Zoho Forms','https://forms.zoho.com/']],
     wt:'Follow the two cards on the Make a Change tab.',
@@ -220,7 +197,7 @@ change:{
   banner:{t:'Wording, content and your own procedures are yours to change.',x:'Changes that touch payments or the connections between systems get a quick coordination step, so registrations keep flowing. Each card says what you can change, where to go, how, what to check afterward, and when to bring in help.'},
   intro:'Most of the work is yours to run: reviewing registrations, deciding fee reductions, shipping toolkits, publishing directory listings, correcting partner information, sending coupons, and updating wording on the form, the welcome email and your REEF.org pages. You can also improve your own procedures as you learn what works. A few changes touch payments or the connections between systems, or need a financial or organizational decision. The label on each card shows which kind it is and why. For the first Zoho email or form change you make, doing it with technical support alongside is a good one-time step so you both see it work. After that, it is yours.',
   cards:[
-   {id:'welcome-email',type:'routine',t:'Change the welcome email wording',status:'verify',
+   {id:'welcome-email',type:'routine',t:'Change the welcome email wording',
     what:'The subject line and the wording of the message.',
     where:[['Zoho Forms','https://forms.zoho.com/']],
     wt:'The form “2027 Conservation Partner Registration (New)”, Settings, Email, New Record tab, template “My Template”.',
@@ -229,7 +206,7 @@ change:{
     depends:'The From name and address, the To field and the green on/off switch control who the email appears to come from and who receives it.',
     how:'If any of those need to change, or you want a message sent to someone else, ask technical support.',
     sn:'Not yet run end to end. First time: make the change with technical support alongside so you both see it work. After that, you can make email wording changes on your own.'},
-   {id:'form-help-text',type:'routine',t:'Change help text or instructions on the form',status:'verify',
+   {id:'form-help-text',type:'routine',t:'Change help text or instructions on the form',
     what:'Question titles, the small help text under a question, and instruction blocks.',
     where:[['Zoho Forms','https://forms.zoho.com/']],
     wt:'The same form, Builder (left bar).',
@@ -246,7 +223,7 @@ change:{
     depends:'A field you need may not be on the page, or may not be editable.',
     how:'That is an access or page fix to request from technical support.',
     sn:'Routine task. Use it whenever a partner’s details change.'},
-   {id:'email-sender',type:'coord',t:'Change who the emails come from',status:'verify',
+   {id:'email-sender',type:'coord',t:'Change who the emails come from',
     what:'The From name and address on the welcome email and the alert.',
     where:[['Zoho Forms','https://forms.zoho.com/']],
     wt:'The same form, Settings, Email, both templates (the welcome email and the alert to partners@).',
@@ -255,7 +232,7 @@ change:{
     depends:'The sender decides where replies go and whether messages arrive. Zoho only allows addresses it has verified as senders.',
     how:'If an address does not appear in the From list, technical support can get it verified.',
     sn:'Both emails are set to send from Noa’s profile. Use this card if that ever needs to change.'},
-   {id:'reef-page-content',type:'routine',t:'Update page content on REEF.org',status:'verify',
+   {id:'reef-page-content',type:'routine',t:'Update page content on REEF.org',
     what:'Text, headings, links, buttons and photos on Conservation Partner pages.',
     wt:'The page on reef.org: sign in, open the page, click the Edit tab.',
     steps:['Sign in to reef.org, open the page and click the Edit tab. The editor takes 15 to 30 seconds to load.','Stay in the visual editor. Skip Disable rich-text and the Source button.','Click in the text and type. To change a button, double-click it to open the Button dialog (text, link, style).','To swap a photo: Content, Files, Add file to upload it. Then click the photo, click the Image button, paste its address (/sites/default/files/ plus the file name) and write new alternative text. Skip the picture-frame Media button; it has not been tested on these pages.','Before you save, scroll to Revision information, tick Create new revision and add a short note. Save.'],
@@ -335,7 +312,7 @@ fix:{
     confirm:'The partner shows as paid with an amount that matches PayPal.',
     escalate:'PayPal shows money and Airtable shows nothing after 10 minutes. Send the organization, email, time, PayPal transaction ID and a screenshot.',
     who:'Store or operations staff for payment questions. Technical support for the record.',
-    refs:[['The weekly PayPal check','tasks/paypal-check']]},
+    refs:[['The weekly QuickBooks report','tasks/paypal-check']]},
    {id:'held-payment-low',t:'A held item says the payment was low or not confirmed',sees:'Other Needs Attention shows a payment that was lower than the fee or could not be confirmed.',
     cause:'The amount was lower than the fee, or the payment could not be confirmed.',
     check:'Other Needs Attention, then ask store or operations staff to look the payment up in PayPal.',
@@ -413,15 +390,9 @@ ref:{
       ['Registration saved and matched in Airtable','{working}','Each registration creates or matches the organization and contact and saves a 2027 registration.'],
       ['Your Conservation Partners pages','{working}','Pages and filters were read on 2 Nov. You can edit records on them.'],
       ['Alert to partners@reef.org','{working}','Arrived in the 29 Oct test.'],
-      ['Welcome email to the partner','{verify}','Updated wording, sent from Noa’s profile. Not yet sent for a real registration. You can edit it.'],
-      ['Thank-you page after paying','{verify}','The page is live. The automatic jump after payment was fixed on 29 Oct and has not been retested with a payment.'],
-      ['Lionfish toolkit hides the region question','{verify}','Set up 29 Oct, not yet seen with a real payment.'],
-      ['Fee reduction path','{verify}','The Airtable steps were tested with test records. A real request has not come through yet.'],
-      ['Toolkit shipping and directory review','{verify}','Lists and statuses work with test records. The shipping and publishing are by hand.'],
       ['Pay-by-invoice process','{interim}','Agreed: you make an Asana task for Christy. Not run yet. No form option. How a paid invoice becomes a registration is not set up.'],
       ['Coupons for new partners','{interim}','Done by hand, the way the team does today. Manual by design.'],
-      ['Alert if the automation stops','{interim}','Not built. The weekly PayPal check covers it for now.'],
-      ['Logos saved to Noa’s Dropbox','{verify}','Uploaded logos go directly to a folder in Noa’s Dropbox. Confirm the first one arrives.'],
+      ['Alert if the automation stops','{interim}','Not built. The weekly QuickBooks report to partners@REEF.org covers it.'],
       ['Zoho CRM and Campaigns for partners','{dev}','A sync is drafted and switched off. Nothing syncs or sends yet.'],
       ['Partners editing their own directory listing','{dev}','A test version exists and is not in use.']
      ]}},
@@ -430,20 +401,14 @@ ref:{
       ['Public registration page (reef.org/Register-CP-2027)','{working}','Loads publicly (checked 2 Nov). Whether it is linked from the site menu has not been checked.'],
       ['The form: questions, $100 fee, optional donation, fee reduction option','{working}','Read on the public form 2 Nov. Nothing was submitted.'],
       ['Paying by PayPal inside the form','{working}','29 Oct paid test ($100 fee plus $10 donation) worked from form to Airtable.'],
-      ['Lionfish toolkit hides the region question','{verify}','Set up 29 Oct. Never tested with a real payment.'],
       ['Thank-you page (reef.org/Thank-You-CP-2027)','{working}','Page is live with its text (checked 2 Nov).'],
-      ['Automatic jump to the thank-you page after paying','{verify}','Fixed on 29 Oct and not retested with a payment.'],
-      ['Welcome email to the partner','{verify}','Rewritten after the 29 Oct test. No live send yet with this wording. Set up to send from Noa’s profile so replies reach Noa; confirm on the first real registration.'],
       ['Alert to partners@reef.org','{working}','Arrived at partners@ in the 29 Oct test. Settings re-checked 2 Nov.'],
       ['Zoho Flow: CP Registration (New) to Airtable','{working}','On. Last 7 days: 2 runs, 2 succeeded, 0 failed (both 29 Oct tests).'],
       ['Airtable automations (process submission, mark paid)','{working}','Deployed. Recent runs all succeeded; no failed runs found 2 Nov.'],
       ['Conservation Partners interface (14 pages)','{working}','Pages and their filters read 2 Nov.'],
       ['Real new registrations so far','','None yet. The Registrations Inbox has no Conservation Partner rows (checked 2 Nov).'],
-      ['Fee reduction (waiver) path','{verify}','Built and shown on Start Here. Airtable steps tested with test records; never run for a real request.'],
       ['Coupons for new partners','{interim}','Not automated, by design. The team makes the code by hand. 16 partner-specific codes exist from the master list.'],
-      ['Toolkit shipping and directory publishing','{verify}','Lists exist. The work itself is by hand.'],
-      ['Logo upload and saving','{verify}','Each uploaded logo goes directly to a folder in Noa’s Dropbox. Confirm the first one arrives.'],
-      ['Alert if the automation fails; log of abandoned payments','{interim}','Not built. The weekly PayPal check covers the first for now; abandoned or unpaid attempts are not logged.'],
+      ['Alert if the automation fails; log of abandoned payments','{interim}','Not built. The weekly QuickBooks report to partners@REEF.org covers the first; abandoned or unpaid attempts are not logged.'],
       ['Zoho CRM and Campaigns for partners','{dev}','A sync Flow is drafted and off. Nothing syncs and nothing sends.'],
       ['Partners editing their own directory listing','{dev}','A test version exists and is not in use.'],
       ['Pay-by-invoice option','{interim}','Process agreed 2 Nov: you make an Asana task for Christy to make the invoice. Never run. No form option.']
@@ -462,7 +427,7 @@ ref:{
      {callout:{t:'Held does not mean broken',x:'“Name is close to an existing partner” and “Already registered for this year” often show up on a registration that worked. Airtable holds these for a person to confirm instead of guessing. Read the note, check, then follow the Next Step.'}},
      {h:'Where messages come from'},
      {table:{head:['Message','Source','Status'],rows:[
-      ['Welcome email to the partner','Zoho Forms. You can edit the wording (see Make a Change). Sent from Noa’s profile and signed by Noa. It tells the partner to email partners@reef.org, and replies reach Noa.','{verify} The wording was updated after the 29 Oct test, and the sender is moving to Noa’s profile. Both will be confirmed with the first real registration.'],
+      ['Welcome email to the partner','Zoho Forms. You can edit the wording (see Make a Change). Sent from Noa’s profile and signed by Noa. It tells the partner to email partners@reef.org, and replies reach Noa.','The wording was updated after the 29 Oct test, and the sender is moving to Noa’s profile. Both will be confirmed with the first real registration.'],
       ['Alert to partners@reef.org','Zoho Forms, sent from Noa’s profile with the name “REEF Registration Alerts”.','{working} It arrived at partners@ in the 29 Oct test. Confirm the sender on the first real one.'],
       ['Payment receipt','PayPal','{working} 29 Oct paid test.'],
       ['Coupon email','You send it, the way the team does today.','{interim} Manual by design.'],
@@ -524,17 +489,6 @@ ref:{
       ['Page or site problems that editing cannot fix','Website support (REEF’s backend developer, who has limited availability, so routine page edits are yours)','The page address and a screenshot.']
      ]}}
    ]},
-   {id:'paypal-check',t:'PayPal check: the safeguard, its owner and its follow-up',blocks:[
-     {p:'**What it protects.** If the registration automation stops, nothing alerts anyone: a partner could pay and not appear. A weekly comparison of PayPal payments with the 2027 Partners list catches this.'},
-     {rows:[
-      ['Frequency','Weekly (current practice).'],
-      ['Who does it today','Store or operations staff, because they have PayPal access. Noa asks them; the program manager does not have PayPal access.'],
-      ['Who owns it','**Not yet assigned.** There is no named person and no recurring reminder.'],
-      ['Automation','None. No alert exists yet if the automation fails, and unpaid or abandoned payments are not logged.'],
-      ['Operational follow-up','Name an owner for the weekly check and set a recurring reminder (an Asana recurring task or a calendar entry), so the program manager does not have to remember it alone. Decide whether an automatic failure alert is worth building.']
-     ]},
-     {p:'Steps: [Run the weekly PayPal check](#tasks/paypal-check).'}
-   ]},
    {id:'invoices',t:'Invoiced registrations: who does what',blocks:[
      {p:'A partner who asks for an invoice does not use the form. This pathway is manual today and is marked **Interim Process**: {interim}'},
      {table:{head:['Step','Who','Status'],rows:[
@@ -550,9 +504,9 @@ ref:{
    ]},
    {id:'launch',t:'Launch stage and what is still manual',blocks:[
      {h:'Still being set up'},
-     {ul:['Technical support is Martha. A backup contact is still to be named.','The welcome email and the alert are set to send from Noa’s profile. Confirm on the first real registration that both come from Noa and that replies reach her.','Uploaded logos go directly to a folder in Noa’s Dropbox. Confirm the first one arrives.','PayPal: store or operations staff handle PayPal questions, refunds and the weekly payment check.','How a paid invoice becomes a registration, and where the team records coupon codes sent, are still being written down.']},
+     {ul:['Technical support is Martha. A backup contact is still to be named.','The welcome email and the alert are set to send from Noa’s profile. Confirm on the first real registration that both come from Noa and that replies reach her.','Uploaded logos go directly to a folder in Noa’s Dropbox. Confirm the first one arrives.','PayPal: store or operations staff handle PayPal questions and refunds.','How a paid invoice becomes a registration, and where the team records coupon codes sent, are still being written down.']},
      {h:'What is still manual'},
-     {ul:['Coupons, toolkit shipping, directory publishing and partner replies are done by hand.','No alert tells anyone if the automation stops, and unpaid or abandoned payments are not logged. The weekly PayPal check covers this for now.','Partners cannot yet edit their own directory listing. A test version exists and is not in use.','No real new registration has come through the live form yet, so the first few are worth a close look. See [the first-live-registrations check](#tasks/first-live).']}
+     {ul:['Coupons, toolkit shipping, directory publishing and partner replies are done by hand.','No alert tells anyone if the automation stops, and unpaid or abandoned payments are not logged. The weekly QuickBooks report to partners@REEF.org covers the first.','Partners cannot yet edit their own directory listing. A test version exists and is not in use.']}
    ]},
    {id:'improve',t:'Help us improve the workflow',blocks:[
      {p:'This system is a foundation, not a finished product. If something feels cumbersome, confusing or unnecessarily manual, flag it. The goal is to keep improving the workflow so it supports the way the program actually works. Decide which kind of change it is:'},

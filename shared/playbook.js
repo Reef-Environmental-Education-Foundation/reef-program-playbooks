@@ -51,7 +51,7 @@ function card(id,title,badges,inner,extra,open){
   return '<details class="item" id="'+id+'"'+(open?' open':'')+' data-text="'+esc(plain(title+' '+inner))+'"><summary>'+(extra||'')+'<span>'+esc(title)+'</span>'+(badges||'')+'</summary><dl class="body">'+inner+'</dl></details>';
 }
 function legendStatus(){
-  return '<ul class="legend-defs">'+Object.keys(STATUS).map(function(k){return '<li>'+pill(k)+' '+esc(STATUS[k][2])+'</li>'}).join('')+'</ul>';
+  return '<ul class="legend-defs">'+Object.keys(STATUS).filter(function(k){return !(P.hideStatus&&P.hideStatus.indexOf(k)>-1)}).map(function(k){return '<li>'+pill(k)+' '+esc(STATUS[k][2])+'</li>'}).join('')+'</ul>';
 }
 function legendChange(){
   return '<div class="three">'+Object.keys(CTYPE).map(function(k){return '<div>'+cpill(k)+'<p>'+esc(CTYPE[k][3])+'</p></div>'}).join('')+'</div>';

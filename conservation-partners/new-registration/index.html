@@ -1,0 +1,456 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conservation Partner New Registration Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;700&display=swap">
+<style>
+/* Layout: sticky header with search and six tabs; one panel at a time; every answer is a collapsible card. */
+:root{
+  --bg:#f3f7f8; --surface:#ffffff; --fg:#14262c; --muted:#55696f; --line:#d3e0e3;
+  --accent:#0b6178; --accent-fg:#ffffff; --accent-soft:#dff0f4;
+  --ok-bg:#dff1e1; --ok-fg:#1f5e2b; --warn-bg:#fff0c9; --warn-fg:#6b4a00; --bad-bg:#fbdcd2; --bad-fg:#8a2a14;
+  --plan-bg:#dce9f7; --plan-fg:#1d4a7a; --chk-bg:#e9e1f2; --chk-fg:#503074;
+  --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Bricolage Grotesque','Atkinson Hyperlegible',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1b1f; --surface:#162529; --fg:#e4eef0; --muted:#9fb3b8; --line:#2a3f45;
+  --accent:#5fc3dc; --accent-fg:#06232b; --accent-soft:#1b3a43;
+  --ok-bg:#1c3a22; --ok-fg:#a9e0b1; --warn-bg:#40330c; --warn-fg:#f3d98a; --bad-bg:#4a2218; --bad-fg:#f5b5a3;
+  --plan-bg:#1c3350; --plan-fg:#aac9ee; --chk-bg:#33264a; --chk-fg:#cdb6ea; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1b1f; --surface:#162529; --fg:#e4eef0; --muted:#9fb3b8; --line:#2a3f45;
+  --accent:#5fc3dc; --accent-fg:#06232b; --accent-soft:#1b3a43;
+  --ok-bg:#1c3a22; --ok-fg:#a9e0b1; --warn-bg:#40330c; --warn-fg:#f3d98a; --bad-bg:#4a2218; --bad-fg:#f5b5a3;
+  --plan-bg:#1c3350; --plan-fg:#aac9ee; --chk-bg:#33264a; --chk-fg:#cdb6ea; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;padding:14px 0 0;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+h1{font-family:var(--font-head);font-size:1.5rem;line-height:1.2;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:.9rem;margin:2px 0 10px}
+.search{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.search:focus,.tab:focus-visible,summary:focus-visible,.btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:10px;padding-bottom:0}
+.tab{border:0;background:none;color:var(--muted);font:inherit;font-weight:700;padding:10px 12px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+main{padding-top:20px}
+.panel[hidden]{display:none!important}
+h2{font-family:var(--font-head);font-size:1.25rem;margin:26px 0 10px;text-wrap:balance}
+h2:first-child{margin-top:0}
+p{margin:0 0 10px;max-width:68ch}
+.banner{background:var(--warn-bg);color:var(--warn-fg);border-radius:8px;padding:12px 14px;margin-bottom:18px}
+.banner b{display:block;margin-bottom:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.btn{display:block;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);padding:12px 14px;border-radius:8px;font:inherit;cursor:pointer;text-decoration:none;min-width:0}
+.btn:hover{border-color:var(--accent)}
+.btn small{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:700}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:6px 0 4px}
+.step{flex:1 1 150px;min-width:0;border:2px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.step b{display:block;font-size:.95rem}.step span{font-size:.84rem;color:var(--muted)}
+.step em{display:block;font-style:normal;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.step.use{border-color:#1f78b4}.step.you{border-color:#2e8b3d;background:var(--ok-bg)}.step.back{border-style:dashed}
+.arrow{align-self:center;color:var(--muted);font-weight:700}
+.later{margin-top:6px;border:2px dashed #c27c00;border-radius:10px;padding:10px 12px;background:var(--surface);font-size:.9rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"\25B8";color:var(--accent);flex:0 0 auto}
+details[open]>summary::before{content:"\25BE"}
+.star{color:var(--accent)}
+.body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:130px 1fr;gap:4px 12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row dt{color:var(--muted);font-size:.85rem;font-weight:700;margin:0}.row dd{margin:0;min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){.row{grid-template-columns:1fr}}
+.pill{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok-fg)}.p-warn{background:var(--warn-bg);color:var(--warn-fg)}.p-bad{background:var(--bad-bg);color:var(--bad-fg)}
+.p-plan{background:var(--plan-bg);color:var(--plan-fg)}.p-chk{background:var(--chk-bg);color:var(--chk-fg)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 12px;border-radius:99px;font:inherit;font-size:.88rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface);margin-bottom:12px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+ul{padding-left:20px;margin:0 0 10px}li{margin-bottom:4px;max-width:68ch}
+.note{color:var(--muted);font-size:.88rem}
+.empty{color:var(--muted);padding:12px 0}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+footer{margin-top:30px;color:var(--muted);font-size:.84rem}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body>
+<style>.p-none{background:var(--line);color:var(--fg)}.p-plan.calm{opacity:.95}</style>
+<div class="wrap">
+<header>
+  <h1>Conservation Partner Playbook: New Registration</h1>
+  <div class="sub">Your guide to running new registrations: where to go, what to do, how to make changes, and how to get help. Last verified 2 Nov 2026.</div>
+  <label for="q" class="note" style="position:absolute;left:-9999px">Search the playbook</label>
+  <input id="q" class="search" type="search" placeholder="Search: fee reduction, toolkit, coupon, email wording, missing..." autocomplete="off">
+  <nav id="tabs" role="tablist" aria-label="Playbook sections"></nav>
+</header>
+<main>
+
+<section class="panel" id="p-start" role="tabpanel">
+  <div class="banner" style="background:var(--ok-bg);color:var(--ok-fg)"><b>This is your system for managing new Conservation Partners.</b>Registrations, payments, partner details and follow-up tasks now come together in one organized process. Instead of tracking information across separate forms, emails and spreadsheets, you can open your Airtable workspace, see what needs attention, and work through the next steps. The aim is simple: less tracking, more time for partners.</div>
+
+  <h2>Start here</h2>
+  <div class="grid">
+    <a class="btn primary" href="https://airtable.com/appCK2qlT3WHdhYKd/pbd5waKvxaMP432vF/pagVETHNblPbxwTxn" target="_blank" rel="noopener">Open Start Here<small style="color:inherit;opacity:.85">Your Airtable home page: the numbers show the work waiting</small></a>
+    <a class="btn" href="https://airtable.com/appCK2qlT3WHdhYKd/pbd5waKvxaMP432vF/pagQgCykQHXegEe9K" target="_blank" rel="noopener">2027 Partners (Registered)<small>Every 2027 partner, with payment and toolkit status</small></a>
+  </div>
+
+  <h2>Your regular workflow</h2>
+  <ol>
+    <li><b>Open Start Here</b> and look at the numbers.</li>
+    <li><b>Review anything that needs attention</b>: fee reduction requests, held items, toolkits to ship, listings to review.</li>
+    <li><b>Process registrations and follow-up</b>: decide fee reductions, ship toolkits, publish directory listings, send coupons.</li>
+    <li><b>Update partner information and fulfillment status</b> as you go, so the next person sees the current picture.</li>
+    <li><b>Once a week,</b> ask store or operations staff, who have PayPal access, to confirm the PayPal payments match the 2027 Partners list. Nothing alerts anyone if the automation pauses, so this quick check keeps you covered.</li>
+    <li><b>Use the "I need to..." tab</b> when you want steps for something less familiar.</li>
+  </ol>
+
+  <h2>What it does for you</h2>
+  <ul>
+    <li><b>Less typing.</b> Each registration is saved in Airtable automatically and matched to the organization and contact if they already exist (tested 29 Oct).</li>
+    <li><b>One place for partner information.</b> Partners and their years of participation are in the same workspace.</li>
+    <li><b>A clear view of new registrations.</b> The 2027 Partners list shows status, payment, toolkit and shipping at a glance.</li>
+    <li><b>Visible to-dos.</b> Start Here counts the work waiting, so nothing depends on memory or an inbox search.</li>
+    <li><b>Fewer missed registrations.</b> partners@reef.org gets an alert for each one (tested 29 Oct), and anything unusual is held with a plain-English note.</li>
+    <li><b>Consistent communication.</b> Every new partner gets the same welcome email automatically.</li>
+  </ul>
+  <p class="note">Coming later: partner contact records and follow-up emails in Zoho CRM and Zoho Campaigns. These are planned, not live yet.</p>
+
+  <h2>What you can do on your own</h2>
+  <p>Most of the work is yours to run: reviewing registrations, deciding fee reductions, shipping toolkits, publishing directory listings, correcting partner information, sending coupons, and updating wording on the form, the welcome email and your REEF.org pages. You can also improve your own procedures as you learn what works. A few changes touch payments or the connections between systems. Those are marked <b>Coordinate before changing</b>, with the reason and who can help.</p>
+  <div class="grid" id="finder"></div>
+
+  <h2>Working in the shared Airtable workspace</h2>
+  <p>You use the shared REEF Staff login. The Conservation Partners pages are built for your daily work, and you can edit records on them. The Data and Automations tabs hold the connected workflow that moves registrations along; a change there can affect every registration, so stay in the interface pages. Because the login is shared, change records rather than shared views. If you want a view of your own, create a new one and leave the existing ones as they are.</p>
+
+  <h2>A few safeguards, and why they exist</h2>
+  <ul>
+    <li><b>Payments and refunds.</b> A refund moves money out of PayPal, so store or operations staff process it. You talk to the partner and make the request.</li>
+    <li><b>Deleting records.</b> A deletion cannot be undone and breaks the link to payments and history. Correct or merge instead. If a record really needs to be removed, technical support can do it safely.</li>
+    <li><b>Test submissions.</b> The live form takes real PayPal payments and writes to live records. Use Preview in Zoho Forms to check wording. If you need a full end-to-end test, ask technical support to set one up with TEST- records.</li>
+    <li><b>Adding a registration by hand.</b> Payments are matched to partners through the form. If a partner cannot use the form, technical support can add them properly.</li>
+  </ul>
+
+  <h2>When you need help</h2>
+  <p>Questions about partners, shipping, listings and wording are yours to answer. Payment and PayPal questions go to store or operations staff. Problems with the form, the connections or access go to technical support (currently Martha). Emails sent from Zoho Campaigns go through Tom. The full list is on the Reference tab. When you ask for help, include the organization, a screenshot and what you were trying to do.</p>
+
+  <p class="note" style="margin-top:14px"><b>Launch status.</b> The form, the automatic steps and the Airtable pages were tested from start to finish on 29 Oct and are ready for real registrations. We are still confirming a few details with the first real ones, such as the updated welcome email wording. Details are on the Reference tab.</p>
+</section>
+
+<section class="panel" id="p-how" role="tabpanel" hidden>
+  <h2>How a new registration moves</h2>
+  <div class="flow">
+    <div class="step use"><b>1. Partner registers and pays</b><span>A form on REEF.org. PayPal is inside the form.</span><em>Partners use this</em></div><div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="step back"><b>2. Zoho Flow</b><span>Carries the registration to Airtable.</span><em>Runs by itself</em></div><div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="step back"><b>3. Airtable sorts it</b><span>Finds or creates the partner and saves the registration. Holds anything unusual.</span><em>Runs by itself</em></div><div class="arrow" aria-hidden="true">&rarr;</div>
+    <div class="step you"><b>4. Conservation Partners pages</b><span>Your lists: new partners, held items, toolkits, listings.</span><em>You work here</em></div>
+  </div>
+  <div class="later"><b>Coming later:</b> copying partners into Zoho CRM and Zoho Campaigns for follow-up emails. A person approves and sends. Nothing sends automatically.</div>
+  <h2>What happens when someone registers</h2>
+  <ol><li>The partner fills in the form and pays. After paying, they should land on a thank-you page.</li><li>Zoho Flow puts one row in the Airtable Registrations Inbox. The Inbox keeps the original submission and feeds the automation, which is why corrections go on the partner record instead.</li><li>Airtable marks it paid, finds or creates the organization and the contact, and saves a 2027 registration. Fee reduction requests wait for your decision.</li><li>Anything unusual is held with a plain note and shows on Start Here.</li><li>The partner gets a welcome email, partners@ gets an alert, and PayPal sends its own receipt.</li></ol>
+  <div class="banner" style="background:var(--ok-bg);color:var(--ok-fg)"><b>Held does not mean broken</b>"Name is close to an existing partner" and "Already registered for this year" often show up on a registration that worked. Airtable holds these for a person to confirm instead of guessing. Read the note, check, then follow the Next Step.</div>
+  <h2>Where messages come from</h2>
+  <div class="tablewrap"><table><thead><tr><th>Message</th><th>Source</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Welcome email to the partner</td><td>Zoho Forms. You can edit the wording (see Change cards). Sent from Noa's profile and signed by Noa. It tells the partner to email partners@reef.org, and replies reach Noa.</td><td><span class="pill p-warn">BUILT, NOT PROVEN</span> The wording was updated after the 29 Oct test, and the sender is moving to Noa's profile. Both will be confirmed with the first real registration.</td></tr>
+    <tr><td>Alert to partners@reef.org</td><td>Zoho Forms, sent from Noa's profile with the name "REEF Registration Alerts".</td><td><span class="pill p-ok">VERIFIED</span> It arrived at partners@ in the 29 Oct test. Confirm the sender on the first real one.</td></tr>
+    <tr><td>Payment receipt</td><td>PayPal</td><td><span class="pill p-ok">VERIFIED</span> 29 Oct paid test.</td></tr>
+    <tr><td>Coupon email</td><td>You send it, the way the team does today.</td><td><span class="pill p-none">NOT BUILT</span> Manual by design.</td></tr>
+    <tr><td>Follow-up and marketing emails</td><td>Zoho Campaigns, sent by Tom.</td><td><span class="pill p-plan">PLANNED</span> Partners are not in Campaigns yet.</td></tr>
+  </tbody></table></div>
+  <h2>The systems in plain words</h2>
+  <div class="tablewrap"><table><thead><tr><th>System</th><th>What it does for you</th><th>Do you use it?</th></tr></thead><tbody>
+    <tr><td>Airtable (Conservation Partners pages)</td><td>Saves partners and registrations and shows your to-do lists.</td><td>Every day</td></tr>
+    <tr><td>Registration form (Zoho Forms)</td><td>Where a partner registers and pays. Also holds the welcome email.</td><td>When you update wording</td></tr>
+    <tr><td>REEF.org</td><td>Hosts the registration page, the thank-you page and the Conservation Partner pages.</td><td>When you update page content</td></tr>
+    <tr><td>PayPal</td><td>Takes the payment, keeps records, sends receipts.</td><td>Not directly. Store or operations staff handle PayPal.</td></tr>
+    <tr><td>Zoho Flow</td><td>Moves the registration into Airtable.</td><td>Technical support looks after it</td></tr>
+    <tr><td>Zoho CRM and Campaigns</td><td>Planned: contact records and approved emails.</td><td>Not live yet</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="panel" id="p-tasks" role="tabpanel" hidden>
+  <h2>I need to...</h2>
+  <p class="note">A star marks the everyday tasks. The label on each task tells you whether it is routine for you, needs a quick coordination step because it touches payments or connected systems, or needs technical support.</p>
+  <div class="legend"><span class="pill p-ok">Manage directly</span><span class="pill p-warn">Coordinate before changing</span><span class="pill p-plan">Technical support</span></div>
+  <div class="filters" id="tfilters" role="group" aria-label="Filter tasks"></div>
+  <div id="tasklist"></div>
+</section>
+
+<section class="panel" id="p-changes" role="tabpanel" hidden>
+  <h2>How to make changes</h2>
+  <div class="banner" style="background:var(--ok-bg);color:var(--ok-fg)"><b>Wording, content and your own procedures are yours to change.</b>Changes that touch payments or the connections between systems get a quick coordination step, so registrations keep flowing. Each card says what you can change, where to go, how, what to check afterward, and when to bring in help. The first time you make a Zoho email or form change, do it with technical support alongside so you both see it work. That is a one-time training step. After that, it is yours.</div>
+  <div id="changelist"></div>
+</section>
+
+<section class="panel" id="p-fixes" role="tabpanel" hidden>
+  <h2>Common questions and fixes</h2>
+  <p class="note">Most of these you can resolve yourself. When you do need help, take a screenshot and note the time and the organization name first.</p>
+  <div id="fixlist"></div>
+</section>
+
+<section class="panel" id="p-ref" role="tabpanel" hidden>
+  <h2>What is working now</h2>
+  <div class="legend"><span class="pill p-ok">VERIFIED</span><span class="pill p-warn">BUILT, NOT PROVEN</span><span class="pill p-plan">PLANNED</span><span class="pill p-none">NOT BUILT</span><span class="pill p-chk">NEEDS CHECK</span></div>
+  <p class="note">VERIFIED means checked and working. BUILT, NOT PROVEN means it exists and was tested with test records but has not run for a real registration yet. PLANNED is designed but not live. NOT BUILT means it does not exist, so it is done by hand.</p>
+  <div class="tablewrap"><table><thead><tr><th>Area</th><th>Status</th><th>What it means for you</th></tr></thead><tbody id="nowrows"></tbody></table></div>
+
+  <h2>Key facts</h2>
+  <div class="tablewrap"><table><tbody>
+    <tr><td>Fee</td><td>$100 a year, not tax-deductible, with an optional donation. Nonprofits may ask for a fee reduction; approved partners get no toolkit and no coupon for now.</td></tr>
+    <tr><td>Year rule</td><td>A partner who joins after 1 July of the year before counts as new for the next full calendar year. Partner status for 2027 runs to 31 Dec 2027.</td></tr>
+    <tr><td>Toolkits</td><td>Volunteer Fish Survey Project Curriculum, Starter Kit, Survey Paper (30 sheets), Color ID Card, Invasive Lionfish. The Lionfish toolkit hides the region question, so a blank region on Lionfish is expected.</td></tr>
+    <tr><td>Coupons</td><td>Made by hand. A paid new partner gets a one-time code for 10% off a store purchase of $250 or more. Partners with a fee reduction get no code.</td></tr>
+    <tr><td>Invoices</td><td>A partner who asks for an invoice does not use the form. Make an Asana task for Christy to make the invoice. $100, due in 30 days. Nothing is shipped or sent until it is paid.</td></tr>
+    <tr><td>Dates</td><td>No fixed registration deadline is recorded.</td></tr>
+  </tbody></table></div>
+
+  <h2>Who does what</h2>
+  <div class="tablewrap"><table><thead><tr><th>Kind of work</th><th>Who</th></tr></thead><tbody>
+    <tr><td>Routine program management: registrations, fee reduction decisions, toolkits, directory listings, partner questions</td><td>Noa Parks (Citizen Science Coordinator), with program oversight and history from Janna (Citizen Science Manager)</td></tr>
+    <tr><td>Content and communication: page text, form instructions, welcome email wording, coupon emails, your own procedures</td><td>The program team</td></tr>
+    <tr><td>Changes that may affect connected systems: form questions and choices, embedded form, payment field</td><td>The program team, with a quick technical check</td></tr>
+    <tr><td>Financial and policy decisions: fee amount, refund rules, invoicing policy</td><td>Coordinate with leadership and operations staff</td></tr>
+    <tr><td>Technical administration and troubleshooting: Zoho Flow, Airtable automations, connections, access</td><td>Technical support (currently Martha)</td></tr>
+  </tbody></table></div>
+
+  <h2>Manage directly, coordinate, or get technical support</h2>
+  <div class="tablewrap"><table><thead><tr><th>Area</th><th>Label</th><th>Why</th></tr></thead><tbody>
+    <tr><td>Daily review, fee reduction decisions, toolkits, directory listings, partner corrections, coupons, partner emails</td><td><span class="pill p-ok">Manage directly</span></td><td>Routine program work that does not change connected systems or policy.</td></tr>
+    <tr><td>Wording on the form, the welcome email and REEF.org pages</td><td><span class="pill p-ok">Manage directly</span></td><td>Content only. Keep the embedded form block and any ${zf:...} fill-ins in emails as they are.</td></tr>
+    <tr><td>Adding, removing or restructuring questions or choices</td><td><span class="pill p-warn">Coordinate before changing</span></td><td>Airtable matches answers by question and choice names, so a structure change needs a quick check.</td></tr>
+    <tr><td>Fee amount, fee options, refund rules, invoicing policy</td><td><span class="pill p-warn">Coordinate before changing</span></td><td>These are organizational decisions, and the PayPal field has to match them.</td></tr>
+    <tr><td>Refunds</td><td><span class="pill p-warn">Coordinate before changing</span></td><td>Store or operations staff process the money.</td></tr>
+    <tr><td>Zoho Flow, Airtable automations, the Data tab, sender and recipient setup, PayPal connection, access</td><td><span class="pill p-plan">Technical support</span></td><td>These carry registrations and payments between systems.</td></tr>
+  </tbody></table></div>
+
+  <h2>Who can help</h2>
+  <div class="tablewrap"><table><thead><tr><th>You need</th><th>Who</th><th>Bring</th></tr></thead><tbody>
+    <tr><td>Answers about partners, shipping, listings, wording</td><td>Noa and Janna</td><td>The partner record.</td></tr>
+    <tr><td>Refunds and payment questions</td><td>Store or operations staff (they have PayPal access)</td><td>Organization, amount, PayPal transaction ID.</td></tr>
+    <tr><td>Form, email setup, automations, connections, access</td><td>Technical support: Martha. A backup contact is still to be named.</td><td>The record or page, a screenshot, and what you were trying to do.</td></tr>
+    <tr><td>Zoho Campaigns emails and lists</td><td>Tom</td><td>The audience and the message.</td></tr>
+    <tr><td>Page or site problems that editing cannot fix</td><td>Website support (REEF's backend developer, who has limited availability, so routine page edits are yours)</td><td>The page address and a screenshot.</td></tr>
+  </tbody></table></div>
+
+  <h2>Help us improve the workflow</h2>
+  <p>This system is a foundation, not a finished product. If something feels cumbersome, confusing or unnecessarily manual, flag it. The goal is to keep improving the workflow so it supports the way the program actually works. Decide which kind of change it is:</p>
+  <ul>
+    <li><b>Something you can change yourself:</b> wording, content, your own procedures. Just do it.</li>
+    <li><b>An interface improvement you would like:</b> a new view, a clearer label, a missing column.</li>
+    <li><b>A new automation that could save time.</b></li>
+    <li><b>A problem that needs troubleshooting:</b> use the Fixes tab first.</li>
+    <li><b>A policy decision that needs a wider conversation:</b> fees, refunds, invoicing.</li>
+  </ul>
+  <p>For the middle three, add a short task to the Conservation Partners project in Asana: what you were trying to do and what would help.</p>
+
+  <h2>Still being set up</h2>
+  <ul id="setup"></ul>
+
+  <h2>What is still manual</h2>
+  <ul><li>Coupons, toolkit shipping, directory publishing and partner replies are done by hand.</li><li>No alert tells anyone if the automation stops, and unpaid or abandoned payments are not logged. The weekly PayPal check covers this for now.</li><li>Partners cannot yet edit their own directory listing. A test version exists and is not in use.</li><li>No real new registration has come through the live form yet, so the first few are worth a close look.</li></ul>
+
+  <details class="item" data-text="technical status detail test dates run counts automation flow history"><summary><span>Technical status detail (test dates, run counts, build notes)</span></summary>
+    <div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Piece</th><th>Status</th><th>Detail</th></tr></thead><tbody id="statusrows"></tbody></table></div>
+    <p class="note">Basis: read-only checks on 2 Nov 2026 of the public form and pages, Zoho Forms settings, Zoho Flow history, Airtable automation run history and interface pages, the Registrations Inbox, and Gmail; plus the 29 Oct test results where a line says so.</p>
+  </details>
+
+  <h2>All links</h2>
+  <ul id="links"></ul>
+</section>
+
+<footer>Last verified 2 Nov 2026 (read-only checks of the live form, Zoho Flow, Airtable automations, Airtable interface and email). This page does not update itself from Zoho or Airtable. When the live system or the process changes, update this page.</footer>
+</main>
+</div>
+
+<script>
+var CI='https://airtable.com/appCK2qlT3WHdhYKd/pbd5waKvxaMP432vF/';
+var PERM={ok:['Manage directly','p-ok'],warn:['Coordinate before changing','p-warn'],bad:['Technical support','p-plan']};
+var STAT={ok:['VERIFIED','p-ok'],built:['BUILT, NOT PROVEN','p-warn'],plan:['PLANNED','p-plan'],none:['NOT BUILT','p-none'],chk:['NEEDS CHECK','p-chk']};
+var TASKS=[
+ {t:'See who has registered',s:1,w:['2027 Partners (Registered)',CI+'pagQgCykQHXegEe9K'],h:'Shows each partner with status, fee option, amount paid, donation, toolkit and shipping status. A new registration appears here once it is paid.',p:'ok',st:'ok',n:'No real new registrations yet.'},
+ {t:'See what needs my attention today',s:1,w:['Start Here',CI+'pagVETHNblPbxwTxn'],h:'Each number is work waiting. Zero does not cover hand work: coupons, directory listings, partner replies.',p:'ok',st:'ok'},
+ {t:'Decide a fee reduction request',s:1,w:['Fee Reduction Requests',CI+'pagFR0b30onXOmGu6'],h:'These decisions are yours. Read the reason. To approve: tick Fee Reduction Approved, then set Processing Status to New. To decline: set Staff Decision and add a Staff Note. Approved partners get no toolkit and no coupon for now.',p:'ok',st:'built',n:'The Airtable steps were tested with test records. A real request has not come through yet.'},
+ {t:'Follow up on a held payment or registration',s:1,w:['Other Needs Attention',CI+'pagKNiYuQSgmnLV4K'],h:'Read "Plain-English Issue" and "Next Step" and follow it. Most held items are routine checks. The Fixes tab covers each kind. If money needs to go back to a partner, store or operations staff process the refund; you handle the conversation.',p:'ok',st:'ok',help:'Payment problems: store or operations staff. Record problems: technical support.'},
+ {t:'Ship a toolkit',s:1,w:['Ship Toolkits',CI+'pag7xtQ9ca8Gv7Zbz'],h:'Lists paid or confirmed partners who chose a toolkit and are not shipped. Ship it, then set Fulfillment Status to Sent.',p:'ok',st:'built',n:'Shipping itself is by hand.'},
+ {t:'Check and publish a directory listing',s:1,w:['Directory Review',CI+'pag0EH8lm1aceIW4F'],h:'Check the listing and the Directory Gaps column, publish on reef.org, then set Directory Review Status.',p:'ok',st:'built',help:'Website support if the page will not save.'},
+ {t:'Find one partner',w:['All Partners (All Years)',CI+'pagJcbUmhazUyPnCY'],h:'Search by organization name. Shows every year a partner was active.',p:'ok',st:'ok'},
+ {t:'Correct a partner name, address or contact',w:['Edit a Partner Record (2027)',CI+'pagnEFcZG9rSTwPrP'],h:'Use this page for routine corrections. The Registrations Inbox keeps the original submission and feeds the automation, so corrections go on the partner record instead.',p:'ok',st:'ok'},
+ {t:'Give a new partner their coupon',w:null,h:'Same as the team does today, by hand. A partner who paid gets a one-time code: 10% off a store purchase of $250 or more, with a partner-specific name plus the year (for example EXAMPLE2027). Create it in the reef.org store and email it to the partner. A partner with a fee reduction gets no code.',p:'ok',st:'none',n:'Where the team records which codes were sent is not written here yet.'},
+ {t:'Handle a partner who wants to pay by invoice',w:null,h:'Do not send them to the form. Create an Asana task for Christy to make the invoice: organization, billing contact and email, $100 (due in 30 days), and the toolkit they want. Hold the toolkit and any other follow-up until the invoice is paid, then let the team know so the registration can be entered.',p:'ok',st:'built',n:'How a paid invoice becomes a registration in Airtable is still being set up.',help:'Technical support (Martha), to add the paid registration properly.'},
+ {t:'Find a partner logo',w:null,h:'Logos uploaded on the form are saved directly to a folder in Noa’s Dropbox.',p:'ok',st:'built',n:'Confirm the first logo arrives there.'},
+ {t:'Update page content on REEF.org',w:null,h:'Edit text, headings, links, buttons and photos on your Conservation Partner pages as part of running the program. Steps are on the Change cards tab. Keep the embedded registration form block in place while you edit around it.',p:'ok',st:'built',n:'Tested on the Conservation Partners landing page. Not yet tested on the registration page with the embedded form.',help:'Website support if the editor will not load or save.'},
+ {t:'Change the wording of the form or the welcome email',w:['Zoho Forms','https://forms.zoho.com/'],h:'Wording, help text and instructions are yours to update. Follow the two cards on the Change cards tab.',p:'ok',st:'built',n:'The first time, do it with technical support alongside as a one-time check.'},
+ {t:'Add, remove or restructure a form question or choice',w:null,h:'Wording is yours. If you want to add, remove or restructure a question or a list of choices that feeds Airtable, arrange a quick technical check first so the connection keeps working. Bring what you want to change and why.',p:'warn',why:'Airtable matches answers by question and choice names. Renaming or removing one can send a registration to Needs Attention or drop its data.',help:'Technical support (Martha).'},
+ {t:'Change the fee, fee options or payment settings',w:null,h:'Fee amounts and refund rules are organizational decisions, and the PayPal field in the form must match them. Agree the change with leadership and operations staff, then technical support updates and tests the form.',p:'warn',why:'The amount a partner pays and the amount Airtable records must stay in step.',help:'Technical support (Martha), after the decision.'},
+ {t:'Check whether the automation stopped',w:null,h:'Once a week, ask store or operations staff to confirm the PayPal payments match the 2027 Partners list. If a payment has no partner after about 10 minutes, see the first Fix.',p:'ok',st:'none',n:'No automatic alert exists yet. You do not have PayPal access, so store or operations staff help with this.'},
+ {t:'Suggest an improvement',w:null,h:'Add a short task to the Conservation Partners project in Asana: what you were trying to do and what would help. See "Help us improve the workflow" on the Reference tab.',p:'ok'}
+];
+var FIXES=[
+ ['Someone says they registered, but I cannot find them','The registration may not have finished, may be under a different spelling, or may be held.','Start Here, then 2027 Partners (Registered) and Other Needs Attention. Try other spellings of the organization and the email. Check the partners@ inbox for the alert. Ask store or operations staff to check PayPal for the payment.','Wait about 10 minutes after a payment, then search again. Tell the partner you are checking. If PayPal shows the payment and Airtable has nothing, it is a connection problem.','You find the record, the held item, or the PayPal payment.','A payment is in PayPal but nothing is in Airtable after 10 minutes. Send the organization, email, time, PayPal transaction ID and a screenshot.','Technical support (Martha).'],
+ ['A partner paid twice','A partner paid more than once, or paid after already registering for the year.','Other Needs Attention. The note says "PAID BUT HELD" and "Already registered for this year". Ask store or operations staff to confirm in PayPal that both payments exist.','Talk to the partner. The standard approach is a refund of the extra payment, which store or operations staff process because it moves money out of PayPal. If the partner says in writing that they want the extra as a donation, note that on the record.','There is one 2027 registration for the partner, and the refund or donation is noted.','The partner asks for an exception, or two payments exist for different organizations.','Store or operations staff. Technical support if the records look wrong.'],
+ ['A held item says the payment was low or not confirmed','The amount was lower than the fee, or the payment could not be confirmed.','Other Needs Attention, then ask store or operations staff to look the payment up in PayPal.','Low payment: once store or operations staff confirm the amount, if the partner owes a balance, contact them for the rest, then follow the Next Step. Not confirmed: if store or operations staff see it as paid in PayPal, update the status the way the Next Step says. If it is pending or failed, contact the partner.','The item leaves the queue.','PayPal and Airtable disagree and you cannot tell why, or a payment looks disputed.','Store or operations staff for payment questions. Technical support if the record looks wrong.'],
+ ['A partner did not get the welcome email','The email may be in spam, or the address on the record may be wrong. It comes through Zoho Forms, so spam filters sometimes catch it.','The email address on the partner record, and the partner’s spam folder.','Email the partner from partners@ to confirm the registration once it shows on the 2027 list. If the address is wrong, correct it on Edit a Partner Record. A re-send from Zoho has not been tested.','The partner has the confirmation, or the record shows the right address.','Several partners report the same thing. That points to the email setup.','Technical support (Martha).'],
+ ['A toolkit has no address or no region','Other Needs Attention shows "Toolkit chosen but no shipping address" or "no region".','The partner record and the toolkit chosen. The Lionfish toolkit has no region on purpose.','Email the partner from partners@ for the missing detail, add it on the record, then set Processing Status to New.','The record appears on Ship Toolkits.','A Lionfish registration shows an error. Screenshot it and leave the numbers as they are.','Technical support (Martha).'],
+ ['A name looks close to a partner we already have','Airtable found a similar organization name and held the registration instead of guessing.','Other Needs Attention says "Name is close to an existing partner". Open All Partners and compare names, contacts and websites.','Follow the Next Step. You and Janna know these partners, so you can usually tell. Records are not linked automatically; avoid creating a second record for the same partner.','You know whether it is the same partner, and the registration sits with the right organization.','You cannot tell, or two records need to be merged.','Janna for program history. Technical support for merging records.'],
+ ['The registration page looks broken','The form may not be loading, or a recent page edit may have disturbed it.','Open reef.org/Register-CP-2027 in a private window. Does the form load? Does the PayPal button appear after choosing a paid option?','Take a screenshot with the time and the page address. Reload once and try a second browser. If someone just edited the page, open its Revisions tab and go back to the version before.','The form loads and the PayPal button appears.','The form still does not load. A fallback for partners while it is down is not set up yet.','Technical support (Martha); website support for the site itself.']
+];
+var CHANGES=[
+ {t:'Change the welcome email wording',can:'The subject line and the wording of the message.',where:'Zoho Forms, the form "2027 Conservation Partner Registration (New)", Settings, Email, New Record tab, template "My Template".',
+  steps:['Open Zoho Forms and find "2027 Conservation Partner Registration (New)". Use the one without TEST CLONE in the name.','Point at the form and click Settings under its name.','Under Email & Notifications, click Email. Stay on the New Record tab.','"My Template" is the welcome email to the partner. Point at it and click the pencil icon on the right. Leave the trash can and the green switch alone.','Change the subject line or the words in the message box. Keep anything that looks like ${zf:Name.First} or ${zf:SingleLine} exactly as it is. Those fill in the partner’s name and organization.','Leave From, From Name and To as they are. Click Save at the bottom right. Cancel throws your changes away.'],
+  check:'No test send has been confirmed, so reread the message in the editor before you save. When the first real registration arrives, confirm with that partner that the email came through and reads well. The change applies to the very next registration.',
+  coord:'If the From name or address, the To field, or the green switch needs changing, or you want a message sent to someone else, get technical support.',
+  train:'First time: make the change with technical support alongside so you both see it work. After that, you can make email wording changes on your own.'},
+ {t:'Change help text or instructions on the form',can:'Question titles, the small help text under a question, and instruction blocks.',where:'Zoho Forms, the same form, Builder (left bar).',
+  steps:['Open the form as above and click Builder in the left bar.','Click the text you want to change and type the new words.','Click Preview at the top right to see how it looks. The preview is only for looking, so do not submit it.','The Builder has no Save button (checked 2 Nov), so treat every edit as live.'],
+  check:'Open reef.org/Register-CP-2027 in a private window and read the new wording. Confirm the form still loads and the PayPal button still appears.',
+  coord:'If new wording changes what a question means, or you want to add, remove or restructure questions or choices, see the Add, remove or restructure card. Leave the PayPal payment field as it is.',
+  train:'First time: do it with technical support alongside. After that, it is yours.'},
+ {t:'Correct a partner’s information',can:'Name, address, contact details and other fields shown on the record page.',where:'Edit a Partner Record (2027) page in the Conservation Partners interface.',
+  steps:['Open Edit a Partner Record (2027) from the links on the Reference tab.','Find the partner and open the record.','Edit the fields the page shows and save.','Make corrections on this record rather than on the Registrations Inbox row. The Inbox keeps the original submission and supports the automated workflow.'],
+  check:'Reopen the record, or search the new spelling in All Partners.',
+  coord:'If a field you need is not on the page, or you cannot edit one, that is an access or page fix to request from technical support.',
+  train:'Routine task. Use it whenever a partner’s details change.',st:'ok'},
+ {t:'Change who the emails come from',can:'The From name and address on the welcome email and the alert.',where:'Zoho Forms, the same form, Settings, Email, both templates (the welcome email and the alert to partners@).',
+  steps:['Open the template with the pencil icon, as in the welcome email card.','Change the From address and From Name. Zoho only offers addresses it has verified as senders.','Save, then do the same in the second template.'],
+  check:'On the next real registration, confirm the welcome email and the alert come from the right sender and that replies go to the right person.',
+  coord:'If an address does not appear in the From list, technical support can get it verified.',
+  train:'Both emails are set to send from Noa’s profile. Use this card if that ever needs to change.',st:'built'},
+ {t:'Update page content on REEF.org',can:'Text, headings, links, buttons and photos on Conservation Partner pages.',where:'The page on reef.org: sign in, open the page, click the Edit tab.',
+  steps:['Sign in to reef.org, open the page and click the Edit tab. The editor takes 15 to 30 seconds to load.','Stay in the visual editor. Skip Disable rich-text and the Source button.','Click in the text and type. To change a button, double-click it to open the Button dialog (text, link, style).','To swap a photo: Content, Files, Add file to upload it. Then click the photo, click the Image button, paste its address (/sites/default/files/ plus the file name) and write new alternative text. Skip the picture-frame Media button; it has not been tested on these pages.','Before you save, scroll to Revision information, tick Create new revision and add a short note. Save.'],
+  check:'Open the page in a private window and read it through. On the registration page, also confirm the form still loads and the PayPal button appears. To undo anything, open the Revisions tab and go back to an earlier version.',
+  coord:'Keep the embedded registration form block in place while you edit the text around it. If you want to move, replace or restyle the form block, change a redirect, or edit the page address, check with website support first.',
+  train:'Tested on the Conservation Partners landing page (10 Oct). Not yet tested on the registration page with the embedded form.',st:'built'},
+ {t:'Add, remove or restructure a form question or choice',can:'Wording is always yours. Structure changes (adding, removing, reordering or renaming questions and choices such as toolkits, region and fee options) need a quick technical check.',where:'Zoho Forms, the same form, Builder.',
+  steps:['Write down what you want to change and why.','Contact technical support. They check how the field feeds Airtable, make or review the change, and test it with a TEST- registration.','Once it is confirmed, announce it to the team and update this playbook if the steps change.'],
+  check:'A test registration lands in Airtable with every answer in the right column and nothing held.',
+  coord:'Why: Airtable matches answers by question and choice names. A rename or removal can send registrations to Needs Attention or drop their data. A quick check keeps the connection intact.',
+  train:'Coordinate before changing.',st:'warn'},
+ {t:'Change the fee, fee options or payment settings',can:'Proposals are welcome. The change itself needs agreement and a technical update.',where:'Zoho Forms, Builder, the payment field, plus the policy decision.',
+  steps:['Agree the new amount or option with leadership and operations staff.','Ask technical support to update the PayPal field and the Airtable mapping and to run a test.','Update the Key facts on the Reference tab.'],
+  check:'A test registration records the new amount, fee option and donation correctly.',
+  coord:'Why: the amount a partner pays, the amount Airtable records and the refund rules must all match.',
+  train:'Coordinate before changing.',st:'warn'}
+];
+var NOW=[
+ ['Registration form and payment','ok','Partners register and pay by PayPal on REEF.org. Tested from form to Airtable on 29 Oct with a $100 fee and a $10 donation.'],
+ ['Registration saved and matched in Airtable','ok','Each registration creates or matches the organization and contact and saves a 2027 registration.'],
+ ['Your Conservation Partners pages','ok','Pages and filters were read on 2 Nov. You can edit records on them.'],
+ ['Alert to partners@reef.org','ok','Arrived in the 29 Oct test.'],
+ ['Welcome email to the partner','built','Updated wording, sent from Noa’s profile. Not yet sent for a real registration. You can edit it.'],
+ ['Thank-you page after paying','built','The page is live. The automatic jump after payment was fixed on 29 Oct and has not been retested with a payment.'],
+ ['Lionfish toolkit hides the region question','built','Set up 29 Oct, not yet seen with a real payment.'],
+ ['Fee reduction path','built','The Airtable steps were tested with test records. A real request has not come through yet.'],
+ ['Toolkit shipping and directory review','built','Lists and statuses work with test records. The shipping and publishing are by hand.'],
+ ['Pay-by-invoice process','built','Agreed: you make an Asana task for Christy. Not run yet. No form option.'],
+ ['Coupons for new partners','none','Done by hand, the way the team does today.'],
+ ['Alert if the automation stops','none','Not built. The weekly PayPal check covers it for now.'],
+ ['Logos saved to Noa’s Dropbox','built','Uploaded logos go directly to a folder in Noa’s Dropbox. Confirm the first one arrives.'],
+ ['Zoho CRM and Campaigns for partners','plan','A sync is drafted and switched off. Nothing syncs or sends yet.'],
+ ['Partners editing their own directory listing','plan','A test version exists and is not in use.']
+];
+var STATUS=[
+ ['Public registration page (reef.org/Register-CP-2027)','ok','Loads publicly (checked 2 Nov). Whether it is linked from the site menu has not been checked.'],
+ ['The form: questions, $100 fee, optional donation, fee reduction option','ok','Read on the public form 2 Nov. Nothing was submitted.'],
+ ['Paying by PayPal inside the form','ok','29 Oct paid test ($100 fee plus $10 donation) worked from form to Airtable.'],
+ ['Lionfish toolkit hides the region question','built','Set up 29 Oct. Never tested with a real payment.'],
+ ['Thank-you page (reef.org/Thank-You-CP-2027)','ok','Page is live with its text (checked 2 Nov).'],
+ ['Automatic jump to the thank-you page after paying','built','Fixed on 29 Oct and not retested with a payment.'],
+ ['Welcome email to the partner','built','Rewritten after the 29 Oct test. No live send yet with this wording. Set up to send from Noa’s profile so replies reach Noa; confirm on the first real registration.'],
+ ['Alert to partners@reef.org','ok','Arrived at partners@ in the 29 Oct test. Settings re-checked 2 Nov.'],
+ ['Zoho Flow: CP Registration (New) to Airtable','ok','On. Last 7 days: 2 runs, 2 succeeded, 0 failed (both 29 Oct tests).'],
+ ['Airtable automations (process submission, mark paid)','ok','Deployed. Recent runs all succeeded; no failed runs found 2 Nov.'],
+ ['Conservation Partners interface (14 pages)','ok','Pages and their filters read 2 Nov.'],
+ ['Real new registrations so far',null,'None yet. The Registrations Inbox has no Conservation Partner rows (checked 2 Nov).'],
+ ['Fee reduction (waiver) path','built','Built and shown on Start Here. Airtable steps tested with test records; never run for a real request.'],
+ ['Coupons for new partners','none','Not automated, by design. The team makes the code by hand. 16 partner-specific codes exist from the master list.'],
+ ['Toolkit shipping and directory publishing','built','Lists exist. The work itself is by hand.'],
+ ['Logo upload and saving','built','Each uploaded logo goes directly to a folder in Noa’s Dropbox. Confirm the first one arrives.'],
+ ['Alert if the automation fails; log of abandoned payments','none','Not built.'],
+ ['Zoho CRM and Campaigns for partners','plan','A sync Flow is drafted and off. Nothing syncs and nothing sends.'],
+ ['Partners editing their own directory listing','plan','A test version exists and is not in use.'],
+ ['Pay-by-invoice option','built','Process agreed 2 Nov: you make an Asana task for Christy to make the invoice. Never run. No form option.']
+];
+var SETUP=[
+ 'Technical support is Martha. A backup contact is still to be named.',
+ 'The welcome email and the alert are set to send from Noa’s profile. Confirm on the first real registration that both come from Noa and that replies reach her.',
+ 'Uploaded logos go directly to a folder in Noa’s Dropbox. Confirm the first one arrives.',
+ 'PayPal: store or operations staff handle PayPal questions, refunds and the weekly payment check.',
+ 'How a paid invoice becomes a registration, and where the team records coupon codes sent, are still being written down.'
+];
+var LINKS=[['Conservation Partners interface (home)',CI],['Start Here',CI+'pagVETHNblPbxwTxn'],['2027 Partners (Registered)',CI+'pagQgCykQHXegEe9K'],['Fee Reduction Requests',CI+'pagFR0b30onXOmGu6'],['Other Needs Attention',CI+'pagKNiYuQSgmnLV4K'],['Ship Toolkits',CI+'pag7xtQ9ca8Gv7Zbz'],['Directory Review',CI+'pag0EH8lm1aceIW4F'],['Edit a Partner Record (2027)',CI+'pagnEFcZG9rSTwPrP'],['All Partners (All Years)',CI+'pagJcbUmhazUyPnCY'],['Dashboard',CI+'pag8WIHP6KgD6SPcN'],['Zoho Forms','https://forms.zoho.com/'],['Registration page on REEF.org','https://www.reef.org/Register-CP-2027'],['Thank-you page on REEF.org','https://www.reef.org/Thank-You-CP-2027'],['Renewal page on REEF.org (separate Renewal playbook planned)','https://www.reef.org/Renew-CP-2027']];
+var TABS=[['start','Start here'],['how','How it works'],['tasks','I need to...'],['changes','Change cards'],['fixes','Fixes'],['ref','Reference']];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function pill(m,k){return '<span class="pill '+m[k][1]+'">'+m[k][0]+'</span>'}
+function row(a,b){return '<div class="row"><dt>'+a+'</dt><dd>'+b+'</dd></div>'}
+function card(title,inner,badges,extra){return '<details class="item" data-text="'+esc((title+' '+inner.replace(/<[^>]+>/g,' ')).toLowerCase())+'"><summary>'+(extra||'')+'<span>'+esc(title)+'</span>'+(badges||'')+'</summary><dl class="body" style="margin:0">'+inner+'</dl></details>'}
+var $=function(i){return document.getElementById(i)};
+
+function renderTasks(filter){
+  var out='';
+  TASKS.forEach(function(k){
+    if(filter==='star'&&!k.s)return; if(filter&&filter!=='star'&&filter!=='all'&&k.p!==filter)return;
+    var inner=row('Where',k.w?'<a href="'+k.w[1]+'" target="_blank" rel="noopener">'+esc(k.w[0])+'</a>':'See the steps below')+row('How',esc(k.h))+row('Label',pill(PERM,k.p));
+    if(k.why)inner+=row('Why',esc(k.why));
+    if(k.st)inner+=row('Status',pill(STAT,k.st)+(k.n?' <span class="note">'+esc(k.n)+'</span>':''));
+    else if(k.n)inner+=row('Note',esc(k.n));
+    if(k.help)inner+=row('If you need help',esc(k.help));
+    out+=card(k.t,inner,pill(PERM,k.p),k.s?'<span class="star" title="Everyday task" aria-label="Everyday task">&#9733;</span>':'');
+  });
+  $('tasklist').innerHTML=out||'<div class="empty">No tasks match this filter.</div>';
+}
+function init(){
+  $('tabs').innerHTML=TABS.map(function(t){return '<button class="tab" role="tab" data-tab="'+t[0]+'" aria-selected="false">'+t[1]+'</button>'}).join('');
+  $('finder').innerHTML=TASKS.filter(function(k){return k.s}).map(function(k){return '<a class="btn" href="'+k.w[1]+'" target="_blank" rel="noopener">'+esc(k.t)+'<small>'+esc(k.w[0])+'</small></a>'}).join('')
+    +'<button class="btn" data-go="fixes">Someone says they registered but I cannot find them<small>Open the fix</small></button><button class="btn" data-go="tasks">See every task<small>Where, how, and what you can do directly</small></button>';
+  $('tfilters').innerHTML=[['all','All'],['star','Everyday'],['ok','Manage directly'],['warn','Coordinate before changing'],['bad','Technical support']].map(function(f,i){return '<button class="chip" data-f="'+f[0]+'" aria-pressed="'+(i===0)+'">'+f[1]+'</button>'}).join('');
+  renderTasks('all');
+  $('changelist').innerHTML=CHANGES.map(function(c){
+    var inner=row('What you can change',esc(c.can))+row('Where to go',esc(c.where))+row('How','<ol style="margin:0;padding-left:20px">'+c.steps.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>')+row('Check afterward',esc(c.check))+row('When to get help',esc(c.coord))+row('Note',esc(c.train));
+    var st=c.st||'built';
+    var badge=(st==='warn')?pill(PERM,'warn'):pill(STAT,st);
+    return card(c.t,inner+(st==='warn'?'':row('Status',pill(STAT,st))),badge)}).join('');
+  $('fixlist').innerHTML=FIXES.map(function(f){return card(f[0],row('What happened',esc(f[1]))+row('What to check',esc(f[2]))+row('What you can do',esc(f[3]))+row('Confirm it is resolved',esc(f[4]))+row('Get help when',esc(f[5]))+row('Who can help',esc(f[6])))}).join('');
+  $('nowrows').innerHTML=NOW.map(function(s){return '<tr><td>'+esc(s[0])+'</td><td>'+pill(STAT,s[1])+'</td><td>'+esc(s[2])+'</td></tr>'}).join('');
+  $('statusrows').innerHTML=STATUS.map(function(s){return '<tr><td>'+esc(s[0])+'</td><td>'+(s[1]?pill(STAT,s[1]):'')+'</td><td>'+esc(s[2])+'</td></tr>'}).join('');
+  $('setup').innerHTML=SETUP.map(function(l){return '<li>'+esc(l)+'</li>'}).join('');
+  $('links').innerHTML=LINKS.map(function(l){return '<li><a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a></li>'}).join('');
+}
+function show(id){
+  if(!document.getElementById('p-'+id))id='start';
+  TABS.forEach(function(t){var p=$('p-'+t[0]);p.hidden=(t[0]!==id)});
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.setAttribute('aria-selected',String(b.getAttribute('data-tab')===id))});
+  var r=$('results'); if(r)r.remove();
+  window.scrollTo(0,0);
+}
+function go(id){try{location.hash=id}catch(e){} show(id)}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-tab]'); if(t){$('q').value='';go(t.getAttribute('data-tab'));return}
+  var g=e.target.closest('[data-go]'); if(g){go(g.getAttribute('data-go'));return}
+  var f=e.target.closest('[data-f]'); if(f){Array.prototype.forEach.call(document.querySelectorAll('.chip'),function(c){c.setAttribute('aria-pressed',String(c===f))});renderTasks(f.getAttribute('data-f'))}
+});
+$('q').addEventListener('input',function(){
+  var v=this.value.trim().toLowerCase(), old=$('results'); if(old)old.remove();
+  if(!v){show((location.hash||'#start').slice(1));return}
+  TABS.forEach(function(t){$('p-'+t[0]).hidden=true});
+  var hits=Array.prototype.filter.call(document.querySelectorAll('.item'),function(n){return n.getAttribute('data-text').indexOf(v)>-1});
+  var s=document.createElement('section');s.id='results';
+  s.innerHTML='<h2>'+hits.length+' result'+(hits.length===1?'':'s')+' for "'+esc(this.value.trim())+'"</h2>';
+  if(!hits.length){s.innerHTML+='<div class="empty">Nothing found. Try a shorter word, or look at the Reference tab.</div>'}
+  hits.forEach(function(n){var c=n.cloneNode(true);c.open=true;s.appendChild(c)});
+  document.querySelector('main').prepend(s);
+});
+init();
+show((location.hash||'#start').slice(1));
+window.addEventListener('hashchange',function(){if(!$('q').value)show((location.hash||'#start').slice(1))});
+</script>
+
+</body></html>

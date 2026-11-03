@@ -9,7 +9,7 @@
      dev = In Development, verify = Needs Verification. Leave "status" off a card that is simply working.
    - When you change something here, update meta.lastVerified below. Questions: Noa or technical support.
 */
-var CI='https://airtable.com/appCK2qlT3WHdhYKd/pbd5waKvxaMP432vF/';
+var CI='https://airtable.com/appCK2qlT3WHdhYKd/';
 var PG={start:CI+'pagVETHNblPbxwTxn',partners27:CI+'pagQgCykQHXegEe9K',fee:CI+'pagFR0b30onXOmGu6',attn:CI+'pagKNiYuQSgmnLV4K',ship:CI+'pag7xtQ9ca8Gv7Zbz',dir:CI+'pag0EH8lm1aceIW4F',edit:CI+'pagnEFcZG9rSTwPrP',all:CI+'pagJcbUmhazUyPnCY',dash:CI+'pag8WIHP6KgD6SPcN'};
 
 window.PLAYBOOK={

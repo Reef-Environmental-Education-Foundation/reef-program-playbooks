@@ -9,7 +9,7 @@
      dev = In Development, verify = Needs Verification. Leave "status" off a card that is simply working.
    - When you change something here, update meta.lastVerified below. Questions: Alli or technical support.
 */
-var DI='https://airtable.com/appCK2qlT3WHdhYKd/pbdPIakptsgLqXYwX/', VI='https://airtable.com/appCK2qlT3WHdhYKd/pbdcAmlLyA6AVCl4T/';
+var DI='https://airtable.com/appCK2qlT3WHdhYKd/', VI='https://airtable.com/appCK2qlT3WHdhYKd/';
 var FORM='https://forms.zoho.com/reeforg1/form/2027LionfishDerbyTeamRegistration1/builder';
 var PG={teams27:DI+'pagitrwO1JewcsGrh',attn:DI+'page5Pb4bA2fhVE2V',pay:DI+'pagrDGzVdOiOfAKXh',all:DI+'pagimnl6QgRnmFUss',results:DI+'page7nkeLyF3lxire',dash:DI+'pagH5EcOVCg2kLhnn',
   review:VI+'pagD7gfDTvGK2wSke',invite:VI+'pagwmfKJGp3o3kqIF',vpay:VI+'pagv9mJxILnclh5i0',vlist:VI+'pagIDXv0lAQ8UOTCA',vattn:VI+'pagkSyuujBq6ctAQm'};
